@@ -27,7 +27,7 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { // attribution: 
     maxZoom: 20,
 }).addTo(map);
 
-function showPosition(position) {
+const showPosition = (position) => {
     console.log('inside showPosition');
     latitude = position.coords.latitude;
     longitude = position.coords.longitude;
