@@ -32,13 +32,16 @@ function getLocation() { // called onload
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition);
     }
-    else console.log('error');
+    else{
+        console.log('error');
+    } 
+    console.log('end of getLocation');
 }
     
 function showPosition(position) {
+    console.log('latitude: ' + latitude + ', longitude: ' + longitude);
     latitude = position.coords.latitude;
     longitude = position.coords.longitude;
-    console.log('latitude: ' + latitude + ', longitude: ' + longitude);
     map.setView([latitude, longitude], defaultZoom);
     L.marker([latitude,longitude], {icon: yourPosIcon}).addTo(map).bindPopup('You are here!') // .openPopup();
 }
