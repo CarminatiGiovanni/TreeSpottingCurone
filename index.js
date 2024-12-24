@@ -14,3 +14,6 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => {
     console.log(`>> Listening at PORT:${PORT}`);
 });
+
+// 54.86.60.29
+// ec2-user
