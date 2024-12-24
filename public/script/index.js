@@ -4,33 +4,26 @@ let latitude = 45.794284064900566;
 let longitude = 9.704325503425144;
 let map = L.map('map').fitWorld(); //setView([latitude, longitude], defaultZoom);
 
-function getLocation() {
-    if (navigator.geolocation) navigator.geolocation.getCurrentPosition(showPosition);
-    else return;
-}
+let yourPosIcon = L.icon({
+    iconUrl: '../icon/feet.png',
+    iconSize:     [30, 30], // size of the icon
+    iconAnchor:   [15, 15], // point of the icon which will correspond to marker's location
+});
 
-function zoomin() {
-    zoom = zoom + 1;
-    map.setView([latitude, longitude], zoom);
-    text.innerHTML = zoom;
-}
-function zoomout() {
-    zoom = zoom - 1;
-    map.setView([latitude, longitude], zoom);
-    text.innerHTML = zoom;
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { // attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    maxZoom: 20,
+}).addTo(map);
+
+function getLocation() { // called onload
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    }
+    else return;
 }
     
 function showPosition(position) {
     latitude = position.coords.latitude;
     longitude = position.coords.longitude;
     map.setView([latitude, longitude], defaultZoom);
+    L.marker([latitude,longitude], {icon: yourPosIcon}).addTo(map).bindPopup('You are here!') // .openPopup();
 }
-
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 20,
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-}).addTo(map);
-
-L.marker([latitude,longitude]).addTo(map)
-    .bindPopup('A pretty CSS popup.<br> Easily customizable.')
-    // .openPopup();
