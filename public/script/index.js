@@ -10,6 +10,12 @@ let yourPosIcon = L.icon({
     iconAnchor:   [15, 15], // point of the icon which will correspond to marker's location
 });
 
+let chestnutIcon = L.icon({
+    iconUrl: '../icon/chestnut.png',
+    iconSize:     [30, 30], // size of the icon
+    iconAnchor:   [15, 15], // point of the icon which will correspond to marker's location
+});
+
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { // attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     maxZoom: 20,
 }).addTo(map);
