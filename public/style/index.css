@@ -1,4 +1,17 @@
-#map { height: 600px;}
+body {
+    padding: 0;
+    margin: 0;
+}
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
+#map {
+    height: 90%;
+    width: 100vw;
+}
+
 #zoomin { position: relative; background-color: red; width: 100px; height: 100px;}
 #zoomout { position: relative; background-color: green; width: 100px; height: 100px; left: 100px; top: -100px}
 #text{position: relative; top: -200px; left: 220px; color:'black';}
