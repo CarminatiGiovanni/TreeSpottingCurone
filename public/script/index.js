@@ -1,6 +1,6 @@
 const defaultZoom = 15
 let zoom = defaultZoom;
-let latitude = 45.794284064900566;
+let latitude = 87; //45.794284064900566;
 let longitude = 9.704325503425144;
 let map = L.map('map').fitWorld(); //setView([latitude, longitude], defaultZoom);
 console.log("hello world");
