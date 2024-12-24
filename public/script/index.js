@@ -1,5 +1,3 @@
-const e = require("express");
-
 const defaultZoom = 15
 let zoom = defaultZoom;
 let latitude = 87; //45.794284064900566;
