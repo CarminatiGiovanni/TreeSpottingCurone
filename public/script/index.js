@@ -42,6 +42,7 @@ function getLocation() { // called onload
     if (navigator.geolocation) {
         try{
             navigator.geolocation.getCurrentPosition((position) => {
+                console.log('inside getCurrentPosition callback');
                 showPosition(position);
             });
             console.log('geolocation taken')
