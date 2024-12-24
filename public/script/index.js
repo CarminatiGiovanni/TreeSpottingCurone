@@ -35,11 +35,11 @@ function getLocation() { // called onload
     else{
         console.log('error');
     } 
+    console.log('latitude: ' + latitude + ', longitude: ' + longitude);
     console.log('end of getLocation');
 }
     
 function showPosition(position) {
-    console.log('latitude: ' + latitude + ', longitude: ' + longitude);
     latitude = position.coords.latitude;
     longitude = position.coords.longitude;
     map.setView([latitude, longitude], defaultZoom);
