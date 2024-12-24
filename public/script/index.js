@@ -40,8 +40,10 @@ function getLocation() { // called onload
 }
     
 function showPosition(position) {
+    console.log('inside showPosition');
     latitude = position.coords.latitude;
     longitude = position.coords.longitude;
     map.setView([latitude, longitude], defaultZoom);
     L.marker([latitude,longitude], {icon: yourPosIcon}).addTo(map).bindPopup('You are here!') // .openPopup();
+    console.log('end of showPosition');
 }
