@@ -19,4 +19,4 @@ app.listen(PORT, () => {
 // 54.86.60.29:80
 // ec2-user
 //  kill -9 $(ps aux | grep '\snode\s' | awk '{print $2}')
-// sudo up
+// sudo su

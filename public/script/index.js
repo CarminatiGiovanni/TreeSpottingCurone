@@ -38,6 +38,7 @@ function getLocation() { // called onload
 function showPosition(position) {
     latitude = position.coords.latitude;
     longitude = position.coords.longitude;
+    console.log('latitude: ' + latitude + ', longitude: ' + longitude);
     map.setView([latitude, longitude], defaultZoom);
     L.marker([latitude,longitude], {icon: yourPosIcon}).addTo(map).bindPopup('You are here!') // .openPopup();
 }
