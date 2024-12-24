@@ -27,30 +27,16 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { // attribution: 
     maxZoom: 20,
 }).addTo(map);
 
-const showPosition = (position) => {
-    console.log('inside showPosition');
+function showPosition(position) {
     latitude = position.coords.latitude;
     longitude = position.coords.longitude;
     map.setView([latitude, longitude], defaultZoom);
     L.marker([latitude,longitude], {icon: yourPosIcon}).addTo(map).bindPopup('You are here!') // .openPopup();
-    console.log('end of showPosition');
 }
 
 function getLocation() { // called onload
-    console.log('getLocation called onload')
-    console.log(navigator.geolocation);
     if (navigator.geolocation) {
-        try{
-            console.log('passed if')
-            navigator.geolocation.getCurrentPosition();
-            navigator.geolocation.getCurrentPosition((position) => {
-                console.log('inside getCurrentPosition callback');
-                showPosition(position);
-            });
-            console.log('geolocation taken')
-        }catch(e){
-            console.log(e);
-        }
+        navigator.geolocation.getCurrentPosition(showPosition);
     }
     else{
         console.log('error');
