@@ -8,12 +8,13 @@ const PORT = process.env.PORT || 3000;
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    res.send('Hello World');
+    // res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 app.listen(PORT, () => {
     console.log(`>> Listening at PORT:${PORT}`);
 });
 
-// 54.86.60.29
+// 54.86.60.29:3000
 // ec2-user
