@@ -27,6 +27,15 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { // attribution: 
     maxZoom: 20,
 }).addTo(map);
 
+function showPosition(position) {
+    console.log('inside showPosition');
+    latitude = position.coords.latitude;
+    longitude = position.coords.longitude;
+    map.setView([latitude, longitude], defaultZoom);
+    L.marker([latitude,longitude], {icon: yourPosIcon}).addTo(map).bindPopup('You are here!') // .openPopup();
+    console.log('end of showPosition');
+}
+
 function getLocation() { // called onload
     console.log('getLocation called onload')
     if (navigator.geolocation) {
@@ -37,13 +46,4 @@ function getLocation() { // called onload
     } 
     console.log('latitude: ' + latitude + ', longitude: ' + longitude);
     console.log('end of getLocation');
-}
-    
-function showPosition(position) {
-    console.log('inside showPosition');
-    latitude = position.coords.latitude;
-    longitude = position.coords.longitude;
-    map.setView([latitude, longitude], defaultZoom);
-    L.marker([latitude,longitude], {icon: yourPosIcon}).addTo(map).bindPopup('You are here!') // .openPopup();
-    console.log('end of showPosition');
 }
