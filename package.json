@@ -14,6 +14,8 @@
   "author": "Carminati Giovanni",
   "license": "ISC",
   "dependencies": {
+    "@aws-sdk/client-location": "^3.716.0",
+    "@aws/amazon-location-utilities-auth-helper": "^1.2.1",
     "express": "^4.21.2"
   },
   "devDependencies": {

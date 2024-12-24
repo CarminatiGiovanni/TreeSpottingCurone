@@ -32,7 +32,7 @@ function getLocation() { // called onload
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition);
     }
-    else return;
+    else console.log('error');
 }
     
 function showPosition(position) {
