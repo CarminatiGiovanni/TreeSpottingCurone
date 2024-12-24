@@ -3,7 +3,7 @@ const path = require('path');
 
 const app = express();
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 80;
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -18,3 +18,4 @@ app.listen(PORT, () => {
 
 // 54.86.60.29:3000
 // ec2-user
+//  kill -9 $(ps aux | grep '\snode\s' | awk '{print $2}')
