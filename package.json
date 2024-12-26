@@ -16,7 +16,8 @@
   "dependencies": {
     "@aws-sdk/client-location": "^3.716.0",
     "@aws/amazon-location-utilities-auth-helper": "^1.2.1",
-    "express": "^4.21.2"
+    "express": "^4.21.2",
+    "mongoose": "^8.9.2"
   },
   "devDependencies": {
     "nodemon": "^3.1.9"
