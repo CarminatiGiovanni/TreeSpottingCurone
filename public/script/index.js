@@ -44,8 +44,8 @@ fetch('/trees',{method: 'POST'} )
     .then(res => res.json())
     .then(trees => {
         trees.forEach(tree => {
-            if (tree.type === 'Castagno') L.marker([tree.latitude, tree.longitude], {icon: chestnutIcon}).addTo(map).bindPopup(tree.name);
-            else if (tree.type === 'Noce') L.marker([tree.latitude, tree.longitude], {icon: walnutIcon}).addTo(map).bindPopup(tree.name);
+            if (tree.name === 'Castagno') L.marker([tree.latitude, tree.longitude], {icon: chestnutIcon}).addTo(map).bindPopup(tree.name);
+            else if (tree.name === 'Noce') L.marker([tree.latitude, tree.longitude], {icon: walnutIcon}).addTo(map).bindPopup(tree.name);
             else L.marker([tree.latitude, tree.longitude], {icon: treeIcon}).addTo(map).bindPopup(tree.name);
         })
     })
@@ -54,7 +54,6 @@ fetch('/trees',{method: 'POST'} )
 fetch('/pods',{method: 'POST'})
     .then(res => res.json())
     .then(pods => {
-        console.log(pods);
         pods.forEach(pod => {
             L.marker([pod.latitude, pod.longitude], {icon: waterIcon}).addTo(map).bindPopup(pod.name);
         });
