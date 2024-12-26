@@ -47,16 +47,19 @@ fetch('/trees',{method: 'POST'} )
             if (tree.type === 'Castagno') L.marker([tree.latitude, tree.longitude], {icon: chestnutIcon}).addTo(map).bindPopup(tree.name);
             else if (tree.type === 'Noce') L.marker([tree.latitude, tree.longitude], {icon: walnutIcon}).addTo(map).bindPopup(tree.name);
             else L.marker([tree.latitude, tree.longitude], {icon: treeIcon}).addTo(map).bindPopup(tree.name);
-        });
-    });
+        })
+    })
+    .catch(err => console.log(err));
 
 fetch('/pods',{method: 'POST'})
     .then(res => res.json())
     .then(pods => {
+        console.log(pods);
         pods.forEach(pod => {
             L.marker([pod.latitude, pod.longitude], {icon: waterIcon}).addTo(map).bindPopup(pod.name);
         });
-    });
+    })
+    .catch(err => console.log(err));
 
 fetch('/ruins',{method: 'POST'})
     .then(res => res.json())
@@ -64,11 +67,42 @@ fetch('/ruins',{method: 'POST'})
         ruins.forEach(ruin => {
             L.marker([ruin.latitude, ruin.longitude], {icon: ruinIcon}).addTo(map).bindPopup(ruin.name);
         });
-    });
+    })
+    .catch(err => console.log(err));
 
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { // attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     maxZoom: 20,
 }).addTo(map);
+
+let mapTapHoldTimeout ;
+
+map.on('touchstart', function() {
+    console.log('in');
+    mapTapHoldTimeout = setTimeout(500);
+});
+
+//clear interval on touchend or touchmove (or you can calculate distance on touchmove to keep some tolerance)
+map.on('touchend,touchmove', function(e) {
+   if ( mapTapHoldTimeout ) {
+        console.log('out');
+      clearTimeout(mapTapHoldTimeout );
+   }
+});
+
+map.on('mousedown', function(e) {
+    console.log('mousedown');
+    mapTapHoldTimeout = setTimeout(function() {
+        let latlng = map.mouseEventToLatLng(e.originalEvent);
+        L.marker(latlng, {icon: yourPosIcon}).addTo(map).bindPopup('You are here!').openPopup();
+    }, 500);
+});
+
+map.on('mouseup', function(e) {
+    if ( mapTapHoldTimeout ) {
+        clearTimeout(mapTapHoldTimeout );
+    }
+})
+
 
 function showPosition(position) {
     latitude = position.coords.latitude;
