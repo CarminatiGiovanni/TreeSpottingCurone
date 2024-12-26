@@ -21,6 +21,28 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
+app.post('/trees', (req, res) => {
+    Tree.find()
+        .then(trees => res.json(trees))
+        .catch(err => res.status(500).send(err));
+});
+
+app.post('/pods', (req, res) => {
+    Pod.find()
+        .then(pods => res.json(pods))
+        .catch(err => res.status(500).send(err));
+});
+
+app.post('/ruins', (req, res) => {
+    Ruin.find()
+        .then(ruins => res.json(ruins))
+        .catch(err => res.status(500).send(err));
+});
+
+
+
+//// ADD AND DELETE
+
 app.post('/add_tree', (req, res) => {
     const tree = new Tree(req.body);
     tree.save()
@@ -41,6 +63,25 @@ app.post('/add_ruin', (req, res) => {
         .then(() => res.send('Ruin added'))
         .catch(err => res.send(err));
 });
+
+app.post('/delete_tree', (req, res) => {
+    Tree.findByIdAndDelete(req.body._id)
+        .then(() => res.send('Tree deleted'))
+        .catch(err => res.send(err));
+});
+
+app.post('/delete_pod', (req, res) => {
+    Pod.findByIdAndDelete(req.body._id)
+        .then(() => res.send('Pod deleted'))
+        .catch(err => res.send(err));
+});
+
+app.post('/delete_ruin', (req, res) => {
+    Ruin.findByIdAndDelete(req.body._id)
+        .then(() => res.send('Ruin deleted'))
+        .catch(err => res.send(err));
+});
+
 
 // 54.86.60.29:80
 // ec2-user
