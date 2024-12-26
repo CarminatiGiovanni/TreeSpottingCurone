@@ -76,21 +76,21 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { // attribution: 
 
 let mapTapHoldTimeout ;
 
-map.on('touchstart', function() {
-    console.log('in');
-    mapTapHoldTimeout = setTimeout(500);
+map.on('touchstart', function(e) {
+    mapTapHoldTimeout = setTimeout(function() {
+        let latlng = map.mouseEventToLatLng(e.originalEvent);
+        L.marker(latlng, {icon: yourPosIcon}).addTo(map).bindPopup('You are here!').openPopup();
+    }, 500);
 });
 
 //clear interval on touchend or touchmove (or you can calculate distance on touchmove to keep some tolerance)
 map.on('touchend,touchmove', function(e) {
    if ( mapTapHoldTimeout ) {
-        console.log('out');
       clearTimeout(mapTapHoldTimeout );
    }
 });
 
 map.on('mousedown', function(e) {
-    console.log('mousedown');
     mapTapHoldTimeout = setTimeout(function() {
         let latlng = map.mouseEventToLatLng(e.originalEvent);
         L.marker(latlng, {icon: yourPosIcon}).addTo(map).bindPopup('You are here!').openPopup();

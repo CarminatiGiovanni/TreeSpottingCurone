@@ -10,6 +10,7 @@ const Ruin = require('./schema/ruinSchema');
 const app = express();
 
 const PORT = process.env.PORT || 443;
+
 mongoose.connect(process.env.MONGODB_URI)
     .then(() => app.listen(PORT, () => {
         console.log(`>> Listening at PORT:${PORT}, DB connected`);
