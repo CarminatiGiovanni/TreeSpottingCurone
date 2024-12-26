@@ -17,8 +17,17 @@ const treeSchema = new mongoose.Schema({
         type: String,
         required: false
     },
-    descriprion: {
+    description: {
         type: String,
         required: false
     },
-});
+    discoveredBy: {
+        type: String,
+        required: false,
+        default: 'Anonymous'
+    }
+}, { timestamps: true });
+
+const Tree = mongoose.model('Tree', treeSchema);
+
+module.exports = Tree;

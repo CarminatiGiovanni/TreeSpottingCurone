@@ -17,4 +17,14 @@ const ruinSchema = new mongoose.Schema({
         type: String,
         required: false
     },
-});
+    discoveredBy: {
+        type: String,
+        required: false,
+        default: 'Anonymous'
+    }
+}, { timestamps: true });
+
+
+const Ruin = mongoose.model('Ruin', ruinSchema);
+
+module.exports = Ruin;

@@ -16,5 +16,14 @@ const podSchema = new mongoose.Schema({
     description: {
         type: String,
         required: false
+    },
+    discoveredBy: {
+        type: String,
+        required: false,
+        default: 'Anonymous'
     }
-});
+}, { timestamps: true });
+
+const Pod = mongoose.model('Pod', podSchema);
+
+module.exports = Pod;
