@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 const treeSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true
+        required: false,
+        default: 'Unknown Tree'
     },
     latitude: {
         type: Number,
@@ -15,11 +16,13 @@ const treeSchema = new mongoose.Schema({
     },
     size: {
         type: String,
-        required: false
+        required: false,
+        default: 'Unknown Size'
     },
     description: {
         type: String,
-        required: false
+        required: false,
+        default: 'No description provided'
     },
     discoveredBy: {
         type: String,

@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 const ruinSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: false
+        required: false,
+        default: 'Unnamed Ruin'
     },
     latitude: {
         type: Number,
@@ -15,7 +16,8 @@ const ruinSchema = new mongoose.Schema({
     },
     description: {
         type: String,
-        required: false
+        required: false,
+        default: 'No description provided'
     },
     discoveredBy: {
         type: String,

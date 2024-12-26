@@ -1,8 +1,11 @@
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 
 const Tree = require('./schema/treeSchema');
+const Pod = require('./schema/podSchema');
+const Ruin = require('./schema/ruinSchema');
 
 const app = express();
 
@@ -14,6 +17,7 @@ mongoose.connect(process.env.MONGODB_URI)
     .catch(err => console.error('>> Error connecting to MongoDB', err));
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.get('/', (req, res) => {
@@ -67,18 +71,51 @@ app.post('/add_tree', (req, res) => {
         .catch(err => res.send(err));
 });
 
+app.post('/populate_tree', (req, res) => { // handle arrays
+    let errors = [];
+    req.body.forEach(t => {
+        const tree = new Tree(t);
+        tree.save()
+            .catch(err => errors.push(err));
+    });
+    if (errors.length > 0) res.send(errors);
+    else res.send('Trees added');
+});
+
 app.post('/add_pod', (req, res) => {
     const pod = new Pod(req.body);
     pod.save()
-        .then(() => res.send('Pod added'))
-        .catch(err => res.send(err));
+        .catch(err => res.send(err))
+        .then(() => res.send('Pod added'));
 }); 
+
+app.post('/populate_pod', (req, res) => { // handle arrays
+    let errors = [];
+    req.body.forEach(p => {
+        const pod = new Pod(p);
+        pod.save()
+            .catch(err => errors.push(err));
+    });
+    if (errors.length > 0) res.send(errors);
+    else res.send('Pods added');
+});
 
 app.post('/add_ruin', (req, res) => {
     const ruin = new Ruin(req.body);
     ruin.save()
         .then(() => res.send('Ruin added'))
         .catch(err => res.send(err));
+});
+
+app.post('/populate_ruin', (req, res) => { // handle arrays
+    let errors = [];
+    req.body.forEach(r => {
+        const ruin = new Ruin(r);
+        ruin.save()
+            .catch(err => errors.push(err));
+    });
+    if (errors.length > 0) res.send(errors);
+    else res.send('Ruins added');
 });
 
 app.post('/delete_tree', (req, res) => {

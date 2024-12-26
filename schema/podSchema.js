@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 const podSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: false
+        required: false,
+        default: 'Unnamed Pod'
     },
     latitude: {
         type: Number,
@@ -15,7 +16,8 @@ const podSchema = new mongoose.Schema({
     },
     description: {
         type: String,
-        required: false
+        required: false,
+        default: 'No description provided'
     },
     discoveredBy: {
         type: String,
