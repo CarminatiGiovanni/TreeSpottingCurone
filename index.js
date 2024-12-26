@@ -39,6 +39,23 @@ app.post('/ruins', (req, res) => {
         .catch(err => res.status(500).send(err));
 });
 
+app.post('/update_tree', (req, res) => {
+    Tree.findByIdAndUpdate(req.body._id, req.body, { new: true })
+        .then(tree => res.json(tree))
+        .catch(err => res.status(500).send(err));
+});
+
+app.post('/update_pod', (req, res) => {
+    Pod.findByIdAndUpdate(req.body._id, req.body, { new: true })
+        .then(pod => res.json(pod))
+        .catch(err => res.status(500).send(err));
+});
+
+app.post('/update_ruin', (req, res) => {
+    Ruin.findByIdAndUpdate(req.body._id, req.body, { new: true })
+        .then(ruin => res.json(ruin))
+        .catch(err => res.status(500).send(err));
+});
 
 
 //// ADD AND DELETE
