@@ -39,9 +39,7 @@ let ruinIcon = L.icon({
     iconAnchor:   [15, 15], // point of the icon which will correspond to marker's location
 });
 
-let map = L.map('map',{
-    tap: false
-}).fitWorld(); //setView([latitude, longitude], defaultZoom);
+let map = L.map('map').fitWorld(); //setView([latitude, longitude], defaultZoom);
 fetch('/trees',{method: 'POST'} )
     .then(res => res.json())
     .then(trees => {
@@ -84,41 +82,6 @@ map.on('dblclick', function(e) {
     let latlng = map.mouseEventToLatLng(e.originalEvent);
     L.marker(latlng, {icon: yourPosIcon}).addTo(map).bindPopup('You are here!').openPopup();
 });
-
-// map.on('touchstart', function(e) {
-//     console.log('dblclick');
-//     mapTapHoldTimeout = setTimeout(function() {
-//         let latlng = map.mouseEventToLatLng(e.originalEvent);
-//         L.marker(latlng, {icon: yourPosIcon}).addTo(map).bindPopup('You are here!').openPopup();
-//     }, 500);
-// });
-
-// clear interval on touchend or touchmove (or you can calculate distance on touchmove to keep some tolerance)
-// map.on('touchend', function(e) {
-//     console.log('dblclick end');
-//    if ( mapTapHoldTimeout ) {
-//       clearTimeout(mapTapHoldTimeout );
-//    }
-// });
-// map.on('touchmove', function(e) {
-//     if ( mapTapHoldTimeout ) {
-//        clearTimeout(mapTapHoldTimeout );
-//     }
-//  });
-
-map.on('mousedown', function(e) {
-    mapTapHoldTimeout = setTimeout(function() {
-        let latlng = map.mouseEventToLatLng(e.originalEvent);
-        L.marker(latlng, {icon: yourPosIcon}).addTo(map).bindPopup('You are here!').openPopup();
-    }, 500);
-});
-
-map.on('mouseup', function(e) {
-    if ( mapTapHoldTimeout ) {
-        clearTimeout(mapTapHoldTimeout );
-    }
-})
-
 
 function showPosition(position) {
     latitude = position.coords.latitude;
