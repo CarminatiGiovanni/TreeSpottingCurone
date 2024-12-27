@@ -39,7 +39,9 @@ let ruinIcon = L.icon({
     iconAnchor:   [15, 15], // point of the icon which will correspond to marker's location
 });
 
-let map = L.map('map').fitWorld(); //setView([latitude, longitude], defaultZoom);
+let map = L.map('map',{
+    tap: false
+}).fitWorld(); //setView([latitude, longitude], defaultZoom);
 fetch('/trees',{method: 'POST'} )
     .then(res => res.json())
     .then(trees => {
@@ -77,72 +79,32 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { // attribution: 
 
 let mapTapHoldTimeout ;
 
-L.Map.mergeOptions({
-    touchExtend: true
-  });
-  
-L.Map.TouchExtend = L.Handler.extend({
-
-initialize: function (map) {
-    this._map = map;
-    this._container = map._container;
-    this._pane = map._panes.overlayPane;
-},
-
-addHooks: function () {
-    L.DomEvent.on(this._container, 'touchstart', this._onTouchStart, this);
-    L.DomEvent.on(this._container, 'touchend', this._onTouchEnd, this);
-},
-
-removeHooks: function () {
-    L.DomEvent.off(this._container, 'touchstart', this._onTouchStart);
-    L.DomEvent.off(this._container, 'touchend', this._onTouchEnd);
-},
-
-_onTouchStart: function (e) {
-    if (!this._map._loaded) { return; }
-
-    var type = 'touchstart';
-
-    var containerPoint = this._map.mouseEventToContainerPoint(e),
-        layerPoint = this._map.containerPointToLayerPoint(containerPoint),
-        latlng = this._map.layerPointToLatLng(layerPoint);
-
-    this._map.fire(type, {
-        latlng: latlng,
-        layerPoint: layerPoint,
-        containerPoint: containerPoint,
-        originalEvent: e
-    });
-},
-
-_onTouchEnd: function (e) {
-    if (!this._map._loaded) { return; }
-
-    var type = 'touchend';
-
-    this._map.fire(type, {
-        originalEvent: e
-    });
-}
-});
-L.Map.addInitHook('addHandler', 'touchExtend', L.Map.TouchExtend);
-
-
-
-map.on('touchstart', function(e) {
-    mapTapHoldTimeout = setTimeout(function() {
-        let latlng = map.mouseEventToLatLng(e.originalEvent);
-        L.marker(latlng, {icon: yourPosIcon}).addTo(map).bindPopup('You are here!').openPopup();
-    }, 500);
+map.doubleClickZoom.disable(); 
+map.on('dblclick', function(e) {
+    let latlng = map.mouseEventToLatLng(e.originalEvent);
+    L.marker(latlng, {icon: yourPosIcon}).addTo(map).bindPopup('You are here!').openPopup();
 });
 
-//clear interval on touchend or touchmove (or you can calculate distance on touchmove to keep some tolerance)
-map.on('touchend,touchmove', function(e) {
-   if ( mapTapHoldTimeout ) {
-      clearTimeout(mapTapHoldTimeout );
-   }
-});
+// map.on('touchstart', function(e) {
+//     console.log('dblclick');
+//     mapTapHoldTimeout = setTimeout(function() {
+//         let latlng = map.mouseEventToLatLng(e.originalEvent);
+//         L.marker(latlng, {icon: yourPosIcon}).addTo(map).bindPopup('You are here!').openPopup();
+//     }, 500);
+// });
+
+// clear interval on touchend or touchmove (or you can calculate distance on touchmove to keep some tolerance)
+// map.on('touchend', function(e) {
+//     console.log('dblclick end');
+//    if ( mapTapHoldTimeout ) {
+//       clearTimeout(mapTapHoldTimeout );
+//    }
+// });
+// map.on('touchmove', function(e) {
+//     if ( mapTapHoldTimeout ) {
+//        clearTimeout(mapTapHoldTimeout );
+//     }
+//  });
 
 map.on('mousedown', function(e) {
     mapTapHoldTimeout = setTimeout(function() {
